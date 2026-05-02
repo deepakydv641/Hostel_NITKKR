@@ -80,3 +80,24 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.info-card').forEach(card => {
     observer.observe(card);
 });
+
+// Copy code functionality
+function copyCode() {
+    const codeElement = document.querySelector('.code-display');
+    const codeText = codeElement.textContent;
+    
+    navigator.clipboard.writeText(codeText).then(() => {
+        const copyBtn = document.querySelector('.copy-btn');
+        const originalText = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<i class="fas fa-check me-1"></i>Copied!';
+        copyBtn.style.background = 'rgba(40, 167, 69, 0.3)';
+        
+        setTimeout(() => {
+            copyBtn.innerHTML = originalText;
+            copyBtn.style.background = 'rgba(255, 255, 255, 0.2)';
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy code:', err);
+        alert('Failed to copy code. Please try again.');
+    });
+}
